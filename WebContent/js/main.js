@@ -42,7 +42,6 @@ function getUsers(){
         dataType: "json",
         success: function (data) {
             renderUsers(data);
-
         },
         error: function (msg) {
         }
@@ -63,12 +62,11 @@ function addUser( name, password ){
         dataType: "json",
         data: obj2PostData(options),
         success: function (data) {
-            console.log(data);
+            clearAddUserModal();
             $('#addUser').modal('toggle');
             getUsers();
         },
         error: function (msg) {
-            console.log(msg);
         }
     });
 };
@@ -88,14 +86,13 @@ function editUser( id, name, password ){
         dataType: "json",
         data: obj2PostData(options),
         success: function (data) {
-            console.log(data);
             if(data.result === "ok"){
             	$('#editUser').modal('toggle');
+            	clearEditUserModal()
             	getUsers();
             }
         },
         error: function (msg) {
-            console.log(msg);
         }
     });
 };
@@ -113,13 +110,11 @@ function deleteUser( id ){
         dataType: "json",
         data: obj2PostData(options),
         success: function (data) {
-            console.log(data);
             if(data.result === "ok"){
             	getUsers();
             }
         },
         error: function (msg) {
-            console.log(msg);
         }
     });
 };
@@ -136,13 +131,11 @@ function deleteAllUsers(){
         dataType: "json",
         data: obj2PostData(options),
         success: function (data) {
-            console.log(data);
             if(data.result === "ok"){
             	getUsers();
             }
         },
         error: function (msg) {
-            console.log(msg);
         }
     });
 };
@@ -171,9 +164,25 @@ $(document).ready(function(){
 	});
 
 	getUsers();
-	
+
 });
 
+// page helper
+function clearAllModal(){
+	clearAddUserModal();
+	clearEditUserModal()
+}
+function clearAddUserModal(){
+	$("#add_name").val("");
+	$("#add_password").val("");
+}
+function clearEditUserModal(){
+	$("#edit_id").val("");
+	$("#edit_name").val("");
+	$("#edit_password").val("");
+}
+
+// util
 function obj2PostData( o ){
 	var rc = "";
 	for(var item in o){
@@ -181,7 +190,6 @@ function obj2PostData( o ){
 			rc += "&";
 		}
 		rc += item+"="+o[item];
-			
 	}
 	return rc;
 }

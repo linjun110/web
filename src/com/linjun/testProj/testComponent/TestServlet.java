@@ -1,6 +1,9 @@
 package com.linjun.testProj.testComponent;
 
 import com.linjun.testProj.testComponent.bo.*;
+import com.linjun.testProj.testComponent.dao.IDao;
+import com.linjun.testProj.testComponent.dao.MysqlDao;
+import com.linjun.testProj.testComponent.exception.BusinessException;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -37,7 +40,7 @@ import net.sf.json.JSONArray;
 public class TestServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
-	private Connection con = null;
+	private IDao dao = null;
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -45,23 +48,7 @@ public class TestServlet extends HttpServlet {
     public TestServlet() {
         super();
         // TODO Auto-generated constructor stub
-        try {
-			Class.forName("com.mysql.jdbc.Driver");
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return;
-		}
-		
-		try {
-			System.out.println("Connecting to db ...");
-			con = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/myProject", "root", "root");
-			System.out.println("Successfully connect to db ...");
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return;
-		}
+        dao = MysqlDao.getInstance();
     }
 
 	/**
@@ -74,7 +61,7 @@ public class TestServlet extends HttpServlet {
 		response.setContentType("text/html");
 		PrintWriter out = response.getWriter();
 		
-		if(con == null){
+		if(dao == null){
 			out.print("[]");
 			out.flush();
 			out.close();
@@ -84,10 +71,8 @@ public class TestServlet extends HttpServlet {
 		List list = new ArrayList(); 
 		Map map = null;
 		try {  
-            String sql = "select * from users";
-            Statement st = (Statement) con.createStatement();
-
-            ResultSet rs = st.executeQuery(sql);
+			ResultSet rs = dao.query("select * from users");
+			// should wrap rs to decouple to sql
             while (rs.next()) {
             	int id = rs.getInt("id");
                 String name = rs.getString("name");
@@ -100,9 +85,13 @@ public class TestServlet extends HttpServlet {
                   
                 list.add( map );    
             }  
-        } catch (SQLException e) {  
+        } catch (BusinessException e) {  
             System.out.println("failed");  
-        }  
+        } catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			System.out.println("failed"); 
+		}  
 		JSONArray jsonArray = JSONArray.fromObject( list );  
 		out.print(jsonArray);
 		out.flush();
@@ -128,50 +117,37 @@ public class TestServlet extends HttpServlet {
 			rc.put( "data", "unknown action");
 		}else if(action.equals("add")){
 			try {  
-	            String sql = "insert into users (name,password) values (\""+request.getParameter("name")+"\",\""+request.getParameter("password")+"\")";
-	            Statement st = (Statement) con.createStatement();
-	              
-	            int count = st.executeUpdate(sql);
+	            dao.execute("insert into users (name,password) values (\""+request.getParameter("name")+"\",\""+request.getParameter("password")+"\")");
 	            rc.put( "result", "ok");  
 				rc.put( "data", "");
-	        } catch (SQLException e) {  
+	        } catch (BusinessException e) {  
 				rc.put( "result", "error");  
 				rc.put( "data", "");
 	        }  
-			out.print(JSONObject.fromObject( rc ));
 		}else if(action.equals("delete")){
 			try {  
-	            String sql = "delete from users where id="+request.getParameter("id");
-	            Statement st = (Statement) con.createStatement();
-	              
-	            int count = st.executeUpdate(sql);
+				dao.execute("delete from users where id="+request.getParameter("id"));
 	            rc.put( "result", "ok");  
 				rc.put( "data", "");
-	        } catch (SQLException e) {  
+	        } catch (BusinessException e) {  
 				rc.put( "result", "error");  
 				rc.put( "data", "");
 	        }  
 		}else if(action.equals("deleteAll")){
 			try {  
-	            String sql = "delete from users";
-	            Statement st = (Statement) con.createStatement();
-	              
-	            int count = st.executeUpdate(sql);
+				dao.execute("delete from users");
 	            rc.put( "result", "ok");  
 				rc.put( "data", "");
-	        } catch (SQLException e) {  
+	        } catch (BusinessException e) {  
 				rc.put( "result", "error");  
 				rc.put( "data", "");
 	        }  
 		}else if(action.equals("update")){
 			try {  
-	            String sql = "update users set name = \""+request.getParameter("name")+"\", password =  \""+request.getParameter("password")+"\" where id="+request.getParameter("id");
-	            Statement st = (Statement) con.createStatement();
-	              
-	            int count = st.executeUpdate(sql);
+				dao.execute("update users set name = \""+request.getParameter("name")+"\", password =  \""+request.getParameter("password")+"\" where id="+request.getParameter("id"));
 	            rc.put( "result", "ok");  
 				rc.put( "data", "");
-	        } catch (SQLException e) {  
+	        } catch (BusinessException e) {  
 	        	rc.put( "result", "error");  
 				rc.put( "data", "");
 	        }  
@@ -187,19 +163,5 @@ public class TestServlet extends HttpServlet {
 
 	public static void main(String args[]){
 		
-		List list = new ArrayList(); 
-		
-		Map map = new HashMap();  
-        map.put( "name", "json" );  
-        map.put( "bool", Boolean.TRUE );  
-        map.put( "int", new Integer(1) );  
-        map.put( "arr", new String[]{"a","b"} );  
-        
-        list.add( map );
-       // map.put( "func", "function(i){ return this.arr[i]; }" );  
-          
-        //JSONObject jsonObject = JSONObject.fromObject( list );  
-        JSONArray jsonArray = JSONArray.fromObject( list );  
-        System.out.println( jsonArray );
 	}
 }
