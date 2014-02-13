@@ -1,0 +1,1 @@
+struts.xml should put to WEB-INF/classes/
