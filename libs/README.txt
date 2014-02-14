@@ -32,3 +32,15 @@ spring-beans-4.0.2.BUILD-20140214.004822-53
 spring-context-4.0.2.BUILD-20140214.004822-53
 spring-core-4.0.2.BUILD-20140214.004822-53
 spring-expression-4.0.2.BUILD-20140214.004822-53
+
+/*hibernate*/
+antlr-2.7.7
+dom4j-1.6.1
+hibernate-commons-annotations-4.0.4.Final
+hibernate-core-4.3.1.Final
+hibernate-jpa-2.1-api-1.0.0.Final
+jandex-1.1.0.Final
+javassist-3.18.1-GA
+jboss-logging-3.1.3.GA
+jboss-logging-annotations-1.2.0.Beta1
+jboss-transaction-api_1.2_spec-1.0.0.Final
