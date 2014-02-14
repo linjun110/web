@@ -4,6 +4,7 @@ import com.linjun.testProj.testComponent.bo.*;
 import com.linjun.testProj.testComponent.dao.IDao;
 import com.linjun.testProj.testComponent.dao.MysqlDao;
 import com.linjun.testProj.testComponent.exception.BusinessException;
+import com.linjun.testSpring.testComponent.SpringMain;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -21,12 +22,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+
 /*servlet*/
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 /*end of servlet*/
+
 
 /*json*/
 import net.sf.json.JSONObject;
@@ -67,6 +70,9 @@ public class TestServlet extends HttpServlet {
 			out.close();
 			return;
 		}
+		
+		SpringMain sm = new SpringMain();
+		sm.doit();
 		
 		List list = new ArrayList(); 
 		Map map = null;

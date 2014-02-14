@@ -33,5 +33,11 @@
 	<classpathentry kind="lib" path="C:/Users/junlin/workspace/j2ee/libs/ognl-3.0.6.jar"/>
 	<classpathentry kind="lib" path="C:/Users/junlin/workspace/j2ee/libs/struts2-core-2.3.16.jar"/>
 	<classpathentry kind="lib" path="C:/Users/junlin/workspace/j2ee/libs/xwork-core-2.3.16.jar"/>
+	<classpathentry kind="lib" path="C:/Users/junlin/workspace/j2ee/libs/aopalliance-1.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/junlin/workspace/j2ee/libs/spring-aop-4.0.2.BUILD-20140214.004822-53.jar"/>
+	<classpathentry kind="lib" path="C:/Users/junlin/workspace/j2ee/libs/spring-beans-4.0.2.BUILD-20140214.004822-53.jar"/>
+	<classpathentry kind="lib" path="C:/Users/junlin/workspace/j2ee/libs/spring-context-4.0.2.BUILD-20140214.004822-53.jar"/>
+	<classpathentry kind="lib" path="C:/Users/junlin/workspace/j2ee/libs/spring-core-4.0.2.BUILD-20140214.004822-53.jar"/>
+	<classpathentry kind="lib" path="C:/Users/junlin/workspace/j2ee/libs/spring-expression-4.0.2.BUILD-20140214.004822-53.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
