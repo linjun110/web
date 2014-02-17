@@ -1,4 +1,4 @@
-package com.linjun.testStruts2.testComponent.interceptor;
+package com.linjun.testProj.testComponent.interceptor;
 
 import java.util.Map;
 

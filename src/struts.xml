@@ -22,7 +22,7 @@
 
         <!-- interceptor -->
         <interceptors>
-            <interceptor name="authentication" class="com.linjun.testStruts2.testComponent.interceptor.AuthenticationInterceptor">
+            <interceptor name="authentication" class="com.linjun.testProj.testComponent.interceptor.AuthenticationInterceptor">
             </interceptor>
         </interceptors>
         <!-- end of interceptor -->
@@ -46,22 +46,22 @@
         </action>
 
         <!-- login actions -->
-        <action name="home" class="com.linjun.testStruts2.testComponent.action.LoginAction">
+        <action name="home" class="com.linjun.testProj.testComponent.action.LoginAction">
             <interceptor-ref name="authentication"></interceptor-ref>
             <result name="success">/home.jsp</result>
         </action>
-        <action name="login" class="com.linjun.testStruts2.testComponent.action.LoginAction" method="login">
+        <action name="login" class="com.linjun.testProj.testComponent.action.LoginAction" method="login">
             <result name="success">/home.jsp</result>
         </action>
-        <action name="logout" class="com.linjun.testStruts2.testComponent.action.LoginAction" method="logout">
+        <action name="logout" class="com.linjun.testProj.testComponent.action.LoginAction" method="logout">
         </action>
 
-        <!-- service actions -->
-        <action name="service1" class="com.linjun.testStruts2.testComponent.action.ServiceAction">
+        <!-- service actions
+        <action name="service1" class="com.linjun.testProj.testComponent.action.ServiceAction">
             <interceptor-ref name="authentication"></interceptor-ref>
             <result name="success">/home.jsp</result>
         </action>
-
+        -->
         <!--
         <action name="Login_*" method="{1}" class="example.Login">
             <result name="input">/example/Login.jsp</result>
@@ -73,6 +73,14 @@
         </action>
         -->
         <!-- Add actions here -->
+
+    </package>
+
+    <package name="json" namespace="/" extends="json-default">
+        <!-- service actions -->
+        <action name="service1" class="com.linjun.testProj.testComponent.action.ServiceAction">
+            <result name="success" type="json"></result>
+        </action>
 
     </package>
 

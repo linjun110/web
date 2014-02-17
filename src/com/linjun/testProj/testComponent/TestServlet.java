@@ -1,22 +1,13 @@
 package com.linjun.testProj.testComponent;
 
-import com.linjun.testProj.testComponent.bo.*;
 import com.linjun.testProj.testComponent.dao.IDao;
 import com.linjun.testProj.testComponent.dao.MysqlDao;
 import com.linjun.testProj.testComponent.exception.BusinessException;
-import com.linjun.testSpring.testComponent.SpringMain;
-
 import java.io.IOException;
 import java.io.PrintWriter;
 
-/*sql*/
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.ResultSet;  
 import java.sql.SQLException;  
-import java.sql.Statement;  
-/*end of sql*/
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
