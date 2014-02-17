@@ -34,7 +34,7 @@ function renderUsers(data){
 };
 
 function getUsers(){
-	var url = "TestServlet";
+	var url = "sub/TestServlet";
 	$.ajax({
         type: "GET",
         url: url,
@@ -49,7 +49,7 @@ function getUsers(){
 };
 
 function addUser( name, password ){
-	var url = "TestServlet";
+	var url = "sub/TestServlet";
 	var options = {
 		action: "add",
 		name: name,
@@ -72,7 +72,7 @@ function addUser( name, password ){
 };
 
 function editUser( id, name, password ){
-	var url = "TestServlet";
+	var url = "sub/TestServlet";
 	var options = {
 		action: "update",
 		id: id,
@@ -98,7 +98,7 @@ function editUser( id, name, password ){
 };
 
 function deleteUser( id ){
-	var url = "TestServlet";
+	var url = "sub/TestServlet";
 	var options = {
 		action: "delete",
 		id: id
@@ -120,7 +120,7 @@ function deleteUser( id ){
 };
 
 function deleteAllUsers(){
-	var url = "TestServlet";
+	var url = "sub/TestServlet";
 	var options = {
 		action: "deleteAll"
 	};

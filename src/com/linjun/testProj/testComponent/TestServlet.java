@@ -23,12 +23,16 @@ import java.util.List;
 import java.util.Map;
 
 
+
+
 /*servlet*/
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 /*end of servlet*/
+
+
 
 
 /*json*/
@@ -52,6 +56,7 @@ public class TestServlet extends HttpServlet {
         super();
         // TODO Auto-generated constructor stub
         dao = MysqlDao.getInstance();
+        System.out.println("Construction");
     }
 
 	/**
@@ -71,8 +76,8 @@ public class TestServlet extends HttpServlet {
 			return;
 		}
 		
-		SpringMain sm = new SpringMain();
-		sm.doit();
+		//SpringMain sm = new SpringMain();
+		//sm.doit();
 		
 		List list = new ArrayList(); 
 		Map map = null;

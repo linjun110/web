@@ -7,34 +7,59 @@
 
     <constant name="struts.enable.DynamicMethodInvocation" value="false" />
     <constant name="struts.devMode" value="true" />
+    <constant name="struts.action.extension" value="action,jsp" />
+
+    <!-- for restful 
+    <constant name="struts.convention.action.suffix"
+        value="Controller"/> 
+    <constant name="struts.convention.action.mapAllMatches"
+        value="true"/> 
+    <constant name="struts.convention.default.parent.package"
+        value="rest-default"/> 
+    end of for restful -->
 
     <package name="default" namespace="/" extends="struts-default">
 
-        <default-action-ref name="index" />
+        <!-- interceptor -->
+        <interceptors>
+            <interceptor name="authentication" class="com.linjun.testStruts2.testComponent.interceptor.AuthenticationInterceptor">
+            </interceptor>
+        </interceptors>
+        <!-- end of interceptor -->
 
         <global-results>
             <result name="error">/error.jsp</result>
+            <result name="login">/login.jsp</result>
+            <result name="logout">/login.jsp</result>
         </global-results>
 
         <global-exception-mappings>
             <exception-mapping exception="java.lang.Exception" result="error"/>
         </global-exception-mappings>
 
+  
         <action name="index">
             <result type="redirectAction">
-                <param name="actionName">Test</param>
-                <param name="namespace">/jsp</param>
+                <param name="actionName">home</param>
+                <param name="namespace">/</param>
             </result>
         </action>
 
+        <!-- login actions -->
+        <action name="home" class="com.linjun.testStruts2.testComponent.action.LoginAction">
+            <interceptor-ref name="authentication"></interceptor-ref>
+            <result name="success">/home.jsp</result>
+        </action>
+        <action name="login" class="com.linjun.testStruts2.testComponent.action.LoginAction" method="login">
+            <result name="success">/home.jsp</result>
+        </action>
+        <action name="logout" class="com.linjun.testStruts2.testComponent.action.LoginAction" method="logout">
+        </action>
 
-    </package>
-
-
-    <package name="jsp" namespace="/jsp" extends="default">
-
-        <action name="Test" class="com.linjun.testStruts2.testComponent.Test">
-            <result>/jsp/Test.jsp</result>
+        <!-- service actions -->
+        <action name="service1" class="com.linjun.testStruts2.testComponent.action.ServiceAction">
+            <interceptor-ref name="authentication"></interceptor-ref>
+            <result name="success">/home.jsp</result>
         </action>
 
         <!--
@@ -48,6 +73,7 @@
         </action>
         -->
         <!-- Add actions here -->
+
     </package>
 
     <!--<include file="example.xml"/>-->
