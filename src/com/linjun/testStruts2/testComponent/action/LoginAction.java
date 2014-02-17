@@ -40,7 +40,7 @@ public class LoginAction extends ActionSupport{
 		}
 		Boolean is_found = false;
 		try {  
-			ResultSet rs = dao.query("select * from users");
+			ResultSet rs = dao.query("select * from user");
             while (rs.next()) {
             	
             	int id = rs.getInt("id");

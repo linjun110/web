@@ -82,7 +82,7 @@ public class TestServlet extends HttpServlet {
 		List list = new ArrayList(); 
 		Map map = null;
 		try {  
-			ResultSet rs = dao.query("select * from users");
+			ResultSet rs = dao.query("select * from user");
 			// should wrap rs to decouple to sql
             while (rs.next()) {
             	int id = rs.getInt("id");
@@ -128,7 +128,7 @@ public class TestServlet extends HttpServlet {
 			rc.put( "data", "unknown action");
 		}else if(action.equals("add")){
 			try {  
-	            dao.execute("insert into users (name,password) values (\""+request.getParameter("name")+"\",\""+request.getParameter("password")+"\")");
+	            dao.execute("insert into user (name,password) values (\""+request.getParameter("name")+"\",\""+request.getParameter("password")+"\")");
 	            rc.put( "result", "ok");  
 				rc.put( "data", "");
 	        } catch (BusinessException e) {  
@@ -137,7 +137,7 @@ public class TestServlet extends HttpServlet {
 	        }  
 		}else if(action.equals("delete")){
 			try {  
-				dao.execute("delete from users where id="+request.getParameter("id"));
+				dao.execute("delete from user where id="+request.getParameter("id"));
 	            rc.put( "result", "ok");  
 				rc.put( "data", "");
 	        } catch (BusinessException e) {  
@@ -146,7 +146,7 @@ public class TestServlet extends HttpServlet {
 	        }  
 		}else if(action.equals("deleteAll")){
 			try {  
-				dao.execute("delete from users");
+				dao.execute("delete from user");
 	            rc.put( "result", "ok");  
 				rc.put( "data", "");
 	        } catch (BusinessException e) {  
@@ -155,7 +155,7 @@ public class TestServlet extends HttpServlet {
 	        }  
 		}else if(action.equals("update")){
 			try {  
-				dao.execute("update users set name = \""+request.getParameter("name")+"\", password =  \""+request.getParameter("password")+"\" where id="+request.getParameter("id"));
+				dao.execute("update user set name = \""+request.getParameter("name")+"\", password =  \""+request.getParameter("password")+"\" where id="+request.getParameter("id"));
 	            rc.put( "result", "ok");  
 				rc.put( "data", "");
 	        } catch (BusinessException e) {  
