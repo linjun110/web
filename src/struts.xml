@@ -46,14 +46,16 @@
         </action>
 
         <!-- login actions -->
-        <action name="home" class="com.linjun.testProj.testComponent.action.LoginAction">
-            <interceptor-ref name="authentication"></interceptor-ref>
-            <result name="success">/home.jsp</result>
-        </action>
         <action name="login" class="com.linjun.testProj.testComponent.action.LoginAction" method="login">
             <result name="success">/home.jsp</result>
         </action>
         <action name="logout" class="com.linjun.testProj.testComponent.action.LoginAction" method="logout">
+        </action>
+
+        <action name="*" method="{1}" class="com.linjun.testProj.testComponent.action.JspAction">
+            <interceptor-ref name="authentication"></interceptor-ref>
+            <result name="home">/home.jsp</result>
+            <result name="manageUser">/manageUser.jsp</result>
         </action>
 
         <!-- service actions
