@@ -2,18 +2,21 @@
 <%@ taglib uri="/struts-tags" prefix="struts"%>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
-<script type="text/javascript" src="js/jquery-2.0.2.min.js"></script>
-<script type="text/javascript" src="js/bootstrap.min.js"></script>
-<link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
-<link rel="stylesheet" type="text/css" href="css/justified-nav.css" />
+<head>
+	<script type="text/javascript" src="js/jquery-2.0.2.min.js"></script>
+	<script type="text/javascript" src="js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="js/util.js"></script>
+	<script type="text/javascript" src="js/show_user_manage.js"></script>
+
+	<link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
+</head>
 
 <%@ include file="page-load-handler-stack.jsp" %>
-<script type="text/javascript">
-$(document).ready(function(){
-	$(".nav li").removeClass("active");
-	$("#nav-manageUser").addClass("active");
-});
-</script>
+<style>
+	th,td{
+		text-align: center;
+	}
+</style>
 <body>
 	<%@ include file="header.jsp" %>
 	<div class="container">
@@ -115,7 +118,6 @@ $(document).ready(function(){
 	</div>
 </body>
 </html>
-<script type="text/javascript" src="js/main.js"></script>
 
 
 

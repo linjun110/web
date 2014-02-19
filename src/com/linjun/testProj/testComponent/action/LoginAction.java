@@ -9,7 +9,7 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.struts2.ServletActionContext;
 
-import com.linjun.testProj.testComponent.bll.AuthenticationExecutor2;
+import com.linjun.testProj.testComponent.bll.AuthenticationExecutor;
 
 import com.opensymphony.xwork2.ActionSupport;
 
@@ -26,7 +26,7 @@ public class LoginAction extends ActionSupport{
 	}
 	
 	public String login() {
-		if( !AuthenticationExecutor2.doAuthentication(account, password) ){
+		if( !AuthenticationExecutor.doAuthentication(account, password) ){
 			return LOGIN;
 		}
 		
@@ -68,7 +68,7 @@ public class LoginAction extends ActionSupport{
 	}
 	
 	public static void main(String[] args){
-		if(AuthenticationExecutor2.doAuthentication("testname", "testpassword")){
+		if(AuthenticationExecutor.doAuthentication("testname", "testpassword")){
 			System.out.println("pass");
 		}else{
 			System.out.println("failed");

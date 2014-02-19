@@ -56,6 +56,10 @@
             <interceptor-ref name="authentication"></interceptor-ref>
             <result name="home">/home.jsp</result>
             <result name="manageUser">/manageUser.jsp</result>
+            <result name="bootstrapWysiwygTryout">/bootstrapWysiwygTryout.jsp</result>
+            <result name="grumbleTryout">/grumbleTryout.jsp</result>
+
+            <result name="homeStyle1">/homeStyle1.jsp</result>
         </action>
 
         <!-- service actions

@@ -15,4 +15,13 @@ public class JspAction extends ActionSupport{
 	public String manageUser() {
 		return "manageUser";
 	}
+	public String bootstrapWysiwygTryout() {
+		return "bootstrapWysiwygTryout";
+	}
+	public String grumbleTryout() {
+		return "grumbleTryout";
+	}
+	public String homeStyle1() {
+		return "homeStyle1";
+	}
 }
