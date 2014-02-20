@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" %>
 <%@ taglib uri="/struts-tags" prefix="struts"%>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
-<!-- http://www.bootcss.com/ -->
 <html>
 <head>
 	<script type="text/javascript" src="js/jquery-2.0.2.min.js"></script>
@@ -23,9 +22,9 @@
 				<div class="thumbnail">
 					<img src="./images/cat-1.jpg" alt="...">
 					<div class="caption">
-						<h3>Kitty</h3>
+						<h3>Cat 1</h3>
 						<p>Am I cute?</p>
-						<p><a href="#" class="btn btn-warning" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
+						<p><a href="#" class="btn btn-warning" role="button">Yellow</a> <a href="#" class="btn btn-default" role="button">White</a></p>
 					</div>
 				</div>
 			</div>
@@ -33,9 +32,9 @@
 				<div class="thumbnail">
 					<img src="./images/cat-2.jpg" alt="...">
 					<div class="caption">
-						<h3>Kitty</h3>
+						<h3>Cat 2</h3>
 						<p>Don't wake me up</p>
-						<p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
+						<p><a href="#" class="btn btn-primary" role="button">Blue</a> <a href="#" class="btn btn-default" role="button">White</a></p>
 					</div>
 				</div>
 			</div>
@@ -43,9 +42,9 @@
 				<div class="thumbnail">
 					<img src="./images/cat-3.jpg" alt="...">
 					<div class="caption">
-						<h3>Kitty</h3>
+						<h3>Cat 3</h3>
 						<p>Thinking of fish?</p>
-						<p><a href="#" class="btn btn-danger" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
+						<p><a href="#" class="btn btn-danger" role="button">Red</a> <a href="#" class="btn btn-default" role="button">White</a></p>
 					</div>
 				</div>
 			</div>
@@ -55,14 +54,14 @@
 			<div class="col-lg-12">
 				<div class="panel panel-success">
 					<div class="panel-heading">
-						<h3>Family</h3>
+						<h3>猫Family</h3>
 					</div>
 					<div class="panel-body">
 						<div class="col-lg-6">
 							<div class="thumbnail">
 								<img src="./images/cat-4.jpg" alt="...">
 								<div class="caption">
-									<p>Bit fat bad cat</p>
+									<p>Bit fat bad cat 4</p>
 								</div>
 							</div>
 						</div>
@@ -70,7 +69,7 @@
 							<div class="thumbnail">
 								<img src="./images/cat-5.jpg" alt="...">
 								<div class="caption">
-									<p>Show how we loved</p>
+									<p>Show how we loved Cat 5</p>
 								</div>
 							</div>
 						</div>
@@ -78,9 +77,9 @@
 				</div>
 			</div>
 		</div>
-		<!-- footer -->
-		<%@ include file="footer.jsp" %>
 	</div>
+	<!-- footer -->
+	<%@ include file="footer.jsp" %>
 </body>
 </html>
 

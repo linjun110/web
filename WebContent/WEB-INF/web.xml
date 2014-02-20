@@ -11,13 +11,25 @@
 
   <servlet>
     <description></description>
-    <display-name>TestServlet</display-name>
-    <servlet-name>TestServlet</servlet-name>
-    <servlet-class>com.linjun.testProj.testComponent.TestServlet</servlet-class>
+    <display-name>UserServlet</display-name>
+    <servlet-name>UserServlet</servlet-name>
+    <servlet-class>com.linjun.testProj.testComponent.UserServlet</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>TestServlet</servlet-name>
-    <url-pattern>/sub/TestServlet</url-pattern>
+    <servlet-name>UserServlet</servlet-name>
+    <url-pattern>/sub/user</url-pattern>
+
+  </servlet-mapping>
+
+   <servlet>
+    <description></description>
+    <display-name>TestTableServlet</display-name>
+    <servlet-name>TestTableServlet</servlet-name>
+    <servlet-class>com.linjun.testProj.testComponent.TestTableServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>TestTableServlet</servlet-name>
+    <url-pattern>/sub/testTable</url-pattern>
 
   </servlet-mapping>
 

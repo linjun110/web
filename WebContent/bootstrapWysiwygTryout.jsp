@@ -110,6 +110,13 @@
 <body>
 	<%@ include file="header.jsp" %>
 	<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+				<h3><a href="http://www.bootcss.com/p/bootstrap-wysiwyg/" target="_blank">bootstrap-wysiwyg主页</a></h3>
+			</div>
+		</div>
+	</div>
+	<div class="container">
 
 		<!-- multicolume -->
 		<div class="row">

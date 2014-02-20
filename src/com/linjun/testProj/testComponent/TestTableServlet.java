@@ -3,15 +3,19 @@ package com.linjun.testProj.testComponent;
 import com.linjun.testProj.testComponent.dao.IDao;
 import com.linjun.testProj.testComponent.dao.MysqlDao;
 import com.linjun.testProj.testComponent.exception.BusinessException;
+
 import java.io.IOException;
 import java.io.PrintWriter;
-
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.sql.ResultSet;  
 import java.sql.SQLException;  
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+
 
 
 
@@ -26,6 +30,8 @@ import javax.servlet.http.HttpServletResponse;
 
 
 
+
+
 /*json*/
 import net.sf.json.JSONObject;
 import net.sf.json.JSONArray;
@@ -35,7 +41,7 @@ import net.sf.json.JSONArray;
 /**
  * Servlet implementation class TestServlet
  */
-public class TestServlet extends HttpServlet {
+public class TestTableServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	private IDao dao = null;
@@ -43,7 +49,7 @@ public class TestServlet extends HttpServlet {
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public TestServlet() {
+    public TestTableServlet() {
         super();
         // TODO Auto-generated constructor stub
         dao = MysqlDao.getInstance();
@@ -114,12 +120,16 @@ public class TestServlet extends HttpServlet {
 		Map rc = new HashMap();  
         
 		String action = request.getParameter("action");
+		String name = URLDecoder.decode(request.getParameter("name"), "UTF-8");
+		String password = URLDecoder.decode(request.getParameter("password"), "UTF-8");
+		String id = request.getParameter("id");
+		
 		if(action == null){
 			rc.put( "result", "error");  
 			rc.put( "data", "unknown action");
 		}else if(action.equals("add")){
 			try {  
-	            dao.execute("insert into testTable (name,password) values (\""+request.getParameter("name")+"\",\""+request.getParameter("password")+"\")");
+	            dao.execute("insert into testTable (name,password) values (\""+name+"\",\""+password+"\")");
 	            rc.put( "result", "ok");  
 				rc.put( "data", "");
 	        } catch (BusinessException e) {  
@@ -128,7 +138,7 @@ public class TestServlet extends HttpServlet {
 	        }  
 		}else if(action.equals("delete")){
 			try {  
-				dao.execute("delete from testTable where id="+request.getParameter("id"));
+				dao.execute("delete from testTable where id="+id);
 	            rc.put( "result", "ok");  
 				rc.put( "data", "");
 	        } catch (BusinessException e) {  
@@ -137,7 +147,7 @@ public class TestServlet extends HttpServlet {
 	        }  
 		}else if(action.equals("deleteAll")){
 			try {  
-				dao.execute("delete from user");
+				dao.execute("delete from testTable");
 	            rc.put( "result", "ok");  
 				rc.put( "data", "");
 	        } catch (BusinessException e) {  
@@ -146,7 +156,7 @@ public class TestServlet extends HttpServlet {
 	        }  
 		}else if(action.equals("update")){
 			try {  
-				dao.execute("update testTable set name = \""+request.getParameter("name")+"\", password =  \""+request.getParameter("password")+"\" where id="+request.getParameter("id"));
+				dao.execute("update testTable set name = \""+name+"\", password =  \""+password+"\" where id="+id);
 	            rc.put( "result", "ok");  
 				rc.put( "data", "");
 	        } catch (BusinessException e) {  
@@ -163,7 +173,6 @@ public class TestServlet extends HttpServlet {
 		out.close();
 	}
 
-	public static void main(String args[]){
-		
+	public static void main(String args[]) throws UnsupportedEncodingException{
 	}
 }

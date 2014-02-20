@@ -1,13 +1,21 @@
-function renderUsers(data){
-	$("#users tr").remove();
+window.config = window.config || {};
+config.table_name = "testTable";
+config.primary_key = "id";
+config.fields = ["name", "password"];
+
+function func_render(data){
+	$("#"+config.table_name+"s tr").remove();
 	var $el = $(document.createDocumentFragment());
 	for(var i=0; i<data.length; i++){
 		var item = ""+
-			"<tr>"+
-				"<td>"+data[i].id+"</td>"+
-				"<td>"+data[i].name+"</td>"+
+			"<tr>";
+			item+="<td>"+data[i][config.primary_key]+"</td>";
+			for (var j = 0; j < config.fields.length; j++) {
+				item+="<td>"+data[i][config.fields[j]]+"</td>";
+			};
+			item+=""+
 				"<td class='operationGroup'>"+
-					"<button type='button' class='btn btn-xs btn-success edit' data-toggle='modal' data-target='#editUser'>Edit</button>"+
+					"<button type='button' class='btn btn-xs btn-success edit' data-toggle='modal' data-target='#edit_"+config.table_name+"'>Edit</button>"+
 					"<button type='button' class='btn btn-xs btn-danger delete'>Delete</button>"+
 				"</td>"+
 			"</tr>";
@@ -16,51 +24,46 @@ function renderUsers(data){
 		$item.find(".operationGroup .delete").data("data", data[i]);
 
 		$item.find(".operationGroup .edit").click(function(){
-			var id = $(this).data("data").id;
-			var name = $(this).data("data").name;
-			var password = $(this).data("data").password;
-			$("#edit_id").val(id);
-			$("#edit_name").val(name);
-			$("#edit_password").val(password);
+			$("#edit_"+config.primary_key).val($(this).data("data")[config.primary_key]);
+			for (var j = 0; j < config.fields.length; j++) {
+				$("#edit_"+config.fields[j]).val($(this).data("data")[config.fields[j]]);
+			};
 		});
 
 		$item.find(".operationGroup .delete").click(function(){
+
 			alertify.confirm("您真的要删除"+$(this).data("data").name+"么？",function(e){
 				if(!e){
 					return;
 				}else{
 					var id = $(this).data("data").id;
-					deleteUser( id );
+					func_delete( id );
 				}
 			});
 		});
 		$el.append($item);
 	}
-	$("#users").append($el);
+	$("#"+config.table_name+"s").append($el);
 };
 
-function getUsers(){
-	var url = "sub/user";
+function func_get(){
+	var url = "sub/"+config.table_name;
 	$.ajax({
         type: "GET",
         url: url,
         //contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (data) {
-            renderUsers(data);
+            func_render(data);
         },
         error: function (msg) {
         }
     });
 };
 
-function addUser( name, password ){
-	var url = "sub/user";
-	var options = {
-		action: "add",
-		name: name,
-		password: password,
-	};
+function func_add( options ){
+	var url = "sub/"+config.table_name;
+	options.action = "add";
 	$.ajax({
         type: "POST",
         url: url,
@@ -68,23 +71,18 @@ function addUser( name, password ){
         dataType: "json",
         data: util.obj2PostData(options),
         success: function (data) {
-            clearAddUserModal();
-            $('#addUser').modal('toggle');
-            getUsers();
+            clearAddModal();
+            $('#add_'+config.table_name).modal('toggle');
+            func_get();
         },
         error: function (msg) {
         }
     });
 };
 
-function editUser( id, name, password ){
-	var url = "sub/user";
-	var options = {
-		action: "update",
-		id: id,
-		name: name,
-		password: password
-	};
+function func_edit( options ){
+	var url = "sub/"+config.table_name;
+	options.action = "update";
 	$.ajax({
         type: "POST",
         url: url,
@@ -93,9 +91,9 @@ function editUser( id, name, password ){
         data: util.obj2PostData(options),
         success: function (data) {
             if(data.result === "ok"){
-            	$('#editUser').modal('toggle');
-            	clearEditUserModal()
-            	getUsers();
+            	$('#edit_'+config.table_name).modal('toggle');
+            	clearEditModal()
+            	func_get();
             }
         },
         error: function (msg) {
@@ -103,12 +101,12 @@ function editUser( id, name, password ){
     });
 };
 
-function deleteUser( id ){
-	var url = "sub/user";
+function func_delete( key ){
+	var url = "sub/"+config.table_name;
 	var options = {
-		action: "delete",
-		id: id
+		action: "delete"
 	};
+	options[config.primary_key] = key;
 	$.ajax({
         type: "POST",
         url: url,
@@ -117,7 +115,7 @@ function deleteUser( id ){
         data: util.obj2PostData(options),
         success: function (data) {
             if(data.result === "ok"){
-            	getUsers();
+            	func_get();
             }
         },
         error: function (msg) {
@@ -125,8 +123,8 @@ function deleteUser( id ){
     });
 };
 
-function deleteAllUsers(){
-	var url = "sub/user";
+function func_deleteAll(){
+	var url = "sub/"+config.table_name;
 	var options = {
 		action: "deleteAll"
 	};
@@ -138,7 +136,7 @@ function deleteAllUsers(){
         data: util.obj2PostData(options),
         success: function (data) {
             if(data.result === "ok"){
-            	getUsers();
+            	func_get();
             }
         },
         error: function (msg) {
@@ -147,49 +145,48 @@ function deleteAllUsers(){
 };
 
 $(document).ready(function(){
-	util.showNav("manage-user");
+	util.showNav("manage-"+config.table_name);
 	// init events for DOM
-	$("#add_user_save").click(function(){
-		var name = $("#add_name").val();
-		var password = $("#add_password").val();
-		if($.trim(name) !== ""){
-			addUser(name, password);
-		}
+	$("#add_"+config.table_name+"_save").click(function(){
+		var options = {};
+		for (var i = 0; i < config.fields.length; i++) {
+			options[config.fields[i]] = encodeURI($("#add_"+config.fields[i]).val());
+		};
+		func_add(options);
 	});
 
-	$("#edit_user_save").click(function(){
-		var id = $("#edit_id").val();
-		var name = $("#edit_name").val();
-		var password = $("#edit_password").val();
-		if($.trim(name) !== ""){
-			editUser(id, name, password);
-		}
+	$("#edit_"+config.table_name+"_save").click(function(){
+		var options = {};
+		options[config.primary_key] = $("#edit_"+config.primary_key).val();
+		for (var i = 0; i < config.fields.length; i++) {
+			options[config.fields[i]] = $("#edit_"+config.fields[i]).val();
+		};
+		func_edit(options);
 	});
 
 	$("#deleteAll").click(function(){
-		alertify.confirm("警告: 您真的要删除所有用户么？",function(e){
+		alertify.confirm("警告: 您真的要删除所有数据么？",function(e){
 			if(!e){
 				return;
-			}else{
-				deleteAllUsers();
+				func_deleteAll();
 			}
 		});
 	});
 
-	getUsers();
+	func_get();
 
 });
 
 // page helper
 function clearAllModal(){
-	clearAddUserModal();
-	clearEditUserModal()
+	clearAddModal();
+	clearEditModal()
 }
-function clearAddUserModal(){
+function clearAddModal(){
 	$("#add_name").val("");
 	$("#add_password").val("");
 }
-function clearEditUserModal(){
+function clearEditModal(){
 	$("#edit_id").val("");
 	$("#edit_name").val("");
 	$("#edit_password").val("");

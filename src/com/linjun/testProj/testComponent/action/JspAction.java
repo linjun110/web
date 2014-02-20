@@ -18,8 +18,11 @@ public class JspAction extends ActionSupport{
 	public String bootstrapWysiwygTryout() {
 		return "bootstrapWysiwygTryout";
 	}
-	public String grumbleTryout() {
-		return "grumbleTryout";
+	public String messengerTryout() {
+		return "messengerTryout";
+	}
+	public String dbTryout() {
+		return "dbTryout";
 	}
 	public String homeStyle1() {
 		return "homeStyle1";

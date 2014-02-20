@@ -35,7 +35,7 @@ import net.sf.json.JSONArray;
 /**
  * Servlet implementation class TestServlet
  */
-public class TestServlet extends HttpServlet {
+public class UserServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	private IDao dao = null;
@@ -43,7 +43,7 @@ public class TestServlet extends HttpServlet {
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public TestServlet() {
+    public UserServlet() {
         super();
         // TODO Auto-generated constructor stub
         dao = MysqlDao.getInstance();
@@ -73,7 +73,7 @@ public class TestServlet extends HttpServlet {
 		List list = new ArrayList(); 
 		Map map = null;
 		try {  
-			ResultSet rs = dao.query("select * from testTable");
+			ResultSet rs = dao.query("select * from user");
 			// should wrap rs to decouple to sql
             while (rs.next()) {
             	int id = rs.getInt("id");
@@ -119,7 +119,7 @@ public class TestServlet extends HttpServlet {
 			rc.put( "data", "unknown action");
 		}else if(action.equals("add")){
 			try {  
-	            dao.execute("insert into testTable (name,password) values (\""+request.getParameter("name")+"\",\""+request.getParameter("password")+"\")");
+	            dao.execute("insert into user (name,password) values (\""+request.getParameter("name")+"\",\""+request.getParameter("password")+"\")");
 	            rc.put( "result", "ok");  
 				rc.put( "data", "");
 	        } catch (BusinessException e) {  
@@ -128,7 +128,7 @@ public class TestServlet extends HttpServlet {
 	        }  
 		}else if(action.equals("delete")){
 			try {  
-				dao.execute("delete from testTable where id="+request.getParameter("id"));
+				dao.execute("delete from user where id="+request.getParameter("id"));
 	            rc.put( "result", "ok");  
 				rc.put( "data", "");
 	        } catch (BusinessException e) {  
@@ -146,7 +146,7 @@ public class TestServlet extends HttpServlet {
 	        }  
 		}else if(action.equals("update")){
 			try {  
-				dao.execute("update testTable set name = \""+request.getParameter("name")+"\", password =  \""+request.getParameter("password")+"\" where id="+request.getParameter("id"));
+				dao.execute("update user set name = \""+request.getParameter("name")+"\", password =  \""+request.getParameter("password")+"\" where id="+request.getParameter("id"));
 	            rc.put( "result", "ok");  
 				rc.put( "data", "");
 	        } catch (BusinessException e) {  
