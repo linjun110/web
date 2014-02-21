@@ -57,8 +57,8 @@
             <result name="home">/home.jsp</result>
             <result name="manageUser">/manageUser.jsp</result>
             <result name="bootstrapWysiwygTryout">/bootstrapWysiwygTryout.jsp</result>
-            <result name="grumbleTryout">/grumbleTryout.jsp</result>
-
+            <result name="messengerTryout">/messengerTryout.jsp</result>
+            <result name="dbTryout">/dbTryout.jsp</result>
             <result name="homeStyle1">/homeStyle1.jsp</result>
         </action>
 
