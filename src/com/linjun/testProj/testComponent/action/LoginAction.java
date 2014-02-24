@@ -7,26 +7,27 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import org.apache.struts2.ServletActionContext;
 
 import com.linjun.testProj.testComponent.bll.AuthenticationExecutor;
-
 import com.opensymphony.xwork2.ActionSupport;
 
 public class LoginAction extends ActionSupport{
 	private static final long serialVersionUID = 7912892052170751803L;
-
+	private static Logger logger = LogManager.getLogger(LoginAction.class);
 	private String account;
-
 	private String password;
 
 	public String execute() {
-		System.out.println("LoginAction: execute");
+		logger.debug("enter execute.");
 		return SUCCESS;
 	}
 	
 	public String login() {
 		if( !AuthenticationExecutor.doAuthentication(account, password) ){
+			logger.debug("return to LOGIN.");
 			return LOGIN;
 		}
 		
@@ -39,7 +40,7 @@ public class LoginAction extends ActionSupport{
 
 		ServletContext context = ServletActionContext.getServletContext();
 		//File uploadFile = new File(context.getRealPath("upload"));
-
+		logger.debug("return to SUCCESS.");
 		return SUCCESS;
 	}
 

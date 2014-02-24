@@ -1,6 +1,5 @@
 package com.linjun.testProj.testComponent;
 
-import com.linjun.testProj.testComponent.dao.IDao;
 import com.linjun.testProj.testComponent.dao.MysqlDao;
 import com.linjun.testProj.testComponent.exception.BusinessException;
 
@@ -16,20 +15,12 @@ import java.util.List;
 import java.util.Map;
 
 
-
-
-
-
 /*servlet*/
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 /*end of servlet*/
-
-
-
-
 
 
 /*json*/
@@ -44,7 +35,7 @@ import net.sf.json.JSONArray;
 public class TestTableServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
-	private IDao dao = null;
+	private MysqlDao dao = null;
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -119,10 +110,26 @@ public class TestTableServlet extends HttpServlet {
 		
 		Map rc = new HashMap();  
         
-		String action = request.getParameter("action");
-		String name = URLDecoder.decode(request.getParameter("name"), "UTF-8");
-		String password = URLDecoder.decode(request.getParameter("password"), "UTF-8");
-		String id = request.getParameter("id");
+		String action = null;
+		String id = null;
+		String name = null;
+		String password = null;
+		try{
+			action = request.getParameter("action");
+		}catch(NullPointerException e){
+		}
+		try{
+			name = URLDecoder.decode(request.getParameter("name"), "UTF-8");
+		}catch(NullPointerException e){
+		}
+		try{
+			password = URLDecoder.decode(request.getParameter("password"), "UTF-8");
+		}catch(NullPointerException e){
+		}
+		try{
+			id = request.getParameter("id");
+		}catch(NullPointerException e){
+		}
 		
 		if(action == null){
 			rc.put( "result", "error");  

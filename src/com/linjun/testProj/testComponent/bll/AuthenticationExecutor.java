@@ -3,15 +3,20 @@ package com.linjun.testProj.testComponent.bll;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import com.linjun.testProj.testComponent.dao.IDao;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
+
 import com.linjun.testProj.testComponent.dao.MysqlDao;
 import com.linjun.testProj.testComponent.exception.BusinessException;
 
 public class AuthenticationExecutor {
-	private static IDao dao = MysqlDao.getInstance();
+	private static MysqlDao dao = MysqlDao.getInstance();
+	private static Logger logger = LogManager.getLogger(AuthenticationExecutor.class);
 	
 	public static boolean doAuthentication(String account, String password){
+		logger.debug("enter doAuthentication");
 		if(dao == null){
+			logger.debug("dao is null, return false.");
 			return false;
 		}
 		try {  
@@ -21,16 +26,16 @@ public class AuthenticationExecutor {
                 String nameInDb = rs.getString("name");
                 String passwordInDb = rs.getString("password");
                 if( nameInDb.equals(account) && passwordInDb.equals(password)){
+                	logger.debug("find account:"+nameInDb+", return true.");
                 	return true;
                 }
             }  
         } catch (SQLException e) {
 			e.printStackTrace();
-			return false;
 		} catch (BusinessException e) {
 			e.printStackTrace();
-			return false;
 		}
+		logger.debug("return false.");
 		return false;
 	}
 }

@@ -1,6 +1,5 @@
 package com.linjun.testProj.testComponent;
 
-import com.linjun.testProj.testComponent.dao.IDao;
 import com.linjun.testProj.testComponent.dao.MysqlDao;
 import com.linjun.testProj.testComponent.exception.BusinessException;
 import java.io.IOException;
@@ -13,18 +12,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-
-
-
 /*servlet*/
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 /*end of servlet*/
-
-
-
 
 /*json*/
 import net.sf.json.JSONObject;
@@ -38,7 +31,7 @@ import net.sf.json.JSONArray;
 public class UserServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
-	private IDao dao = null;
+	private MysqlDao dao = null;
        
     /**
      * @see HttpServlet#HttpServlet()

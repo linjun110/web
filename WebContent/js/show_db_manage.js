@@ -31,12 +31,12 @@ function func_render(data){
 		});
 
 		$item.find(".operationGroup .delete").click(function(){
-
-			alertify.confirm("您真的要删除"+$(this).data("data").name+"么？",function(e){
+			var _this = this;
+			alertify.confirm("您真的要删除"+$(_this).data("data").name+"么？",function(e){
 				if(!e){
 					return;
 				}else{
-					var id = $(this).data("data").id;
+					var id = $(_this).data("data").id;
 					func_delete( id );
 				}
 			});
